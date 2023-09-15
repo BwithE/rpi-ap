@@ -5,12 +5,15 @@ First, make sure your Raspberry Pi is connected to an ethernet connection if you
 Run the following commands.
 
 ```sudo apt install wget -y```
+then
 ```wget https://raw.githubusercontent.com/BwithE/rpi-wpa2/main/rpi-ap.sh```
 
 To run the script, run the following
 
 ```sudo bash rpi-ap.sh```
+
 or
+
 ```sudo chmod +x rpi-ap.sh```
 ```sudo ./rpi-ap.sh```
 
