@@ -25,7 +25,6 @@ clear
 # Applies update then install required software for the application
 sudo apt-get update -y 
 sudo apt-get install hostapd dnsmasq -y
-sudo apt install wget -y
 sudo DEBIAN_FRONTEND=noninteractive apt install -y netfilter-persistent iptables-persistent
 
 #!/bin/bash
