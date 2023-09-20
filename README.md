@@ -14,8 +14,9 @@ To run the script, run the following
 
 or
 
-```sudo chmod +x rpi-ap.sh```
-```sudo ./rpi-ap.sh```
+Make the script executable: ```sudo chmod +x rpi-ap.sh```
+
+Then run: ```sudo ./rpi-ap.sh```
 
 You will be prompted for SSID, Passphrase, Channel, wireless card to broadcast from, and how many IP's to lease.
 You need to specify "wlan0" as your wireless card if you're not using a secondary external wireless card.
