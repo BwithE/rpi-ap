@@ -8,9 +8,7 @@ Run the following commands.
 then
 ```wget https://raw.githubusercontent.com/BwithE/rpi-wpa2/main/rpi-ap.sh```
 
-To run the script, run the following
-
-```sudo bash rpi-ap.sh```
+To run the script, run the following: ```sudo bash rpi-ap.sh```
 
 or
 
