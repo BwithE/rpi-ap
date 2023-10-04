@@ -9,6 +9,15 @@ read -p "What channel would you like your network to run on?: " channel
 read -p "What network card would you like to use? (ex. wlan0 or wlan1): " wificard
 read -p "How many user's would you like to be able to join this network? (ex: 2-50): " allowed_ips
 
+# Based off user input, the channel specifies the mode
+if [[ $channel -ge 1 && $channel -le 11 ]]; then
+  mode="g"
+elif [[ $channel -ge 36 && $channel -le 196 ]]; then
+  mode="a"
+else
+  echo "Invalid channel number."
+  exit 1
+fi
 
 clear
 
@@ -16,10 +25,11 @@ echo "This script is about to apply updates and install the necessary applicatio
 echo "SSID: $ssid"
 echo "Password: $pass"
 echo "Wireless card: $wificard"
+echo "Mode and Channel: $mode $channel"
 echo " "
-echo "To change these, check the '/etc/hostapd/hostapd.conf'"
+echo "To modify these settings, check the '/etc/hostapd/hostapd.conf'"
 echo " "
-sleep 5
+read -n 1 -r -s -p $'Press enter to continue if the values above are correct. Otherwise "Ctrl + c" to reenter...\n'
 clear
 
 # Applies update then install required software for the application
@@ -78,7 +88,7 @@ clear
 sudo tee -a /etc/hostapd/hostapd.conf << EOF
 interface=$wificard
 ssid=$ssid
-hw_mode=g
+hw_mode=$mode
 channel=$channel
 wmm_enabled=0
 macaddr_acl=0
