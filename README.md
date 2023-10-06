@@ -9,7 +9,10 @@ Once you've specified all the necessary options, the machine will apply those op
 
 After all the settings have been configured, the Raspberry Pi will reboot and will start broadcasting as an access point.
 
-Create a local copy of the script.
+
+FIRST: Create a local copy of the script.
+
+
 ```wget https://raw.githubusercontent.com/BwithE/rpi-wpa2/main/rpi-ap.sh```
 
 Make the script executable: 
@@ -18,6 +21,10 @@ Make the script executable:
 
 Then run the script: 
 
-```sudo ./rpi-ap.sh``` or ```sudo bash rpi-ap.sh```
+```sudo ./rpi-ap.sh``` 
+
+or 
+
+```sudo bash rpi-ap.sh```
 
 
