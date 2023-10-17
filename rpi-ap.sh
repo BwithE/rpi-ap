@@ -36,7 +36,7 @@ if [ "$cloud" = "yes" ]; then
   echo "VPN conf location: $vpnconf"
 fi
 echo " "
-echo "To modify these settings, check the '/etc/hostapd/hostapd.conf'"
+echo "To modify Access Point settings, check the '/etc/hostapd/hostapd.conf'"
 echo " "
 read -n 1 -r -s -p $'Press enter to continue if the values above are correct. Otherwise "Ctrl + c" to reenter...\n'
 clear
