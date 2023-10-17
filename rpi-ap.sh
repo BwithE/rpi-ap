@@ -12,7 +12,7 @@ read -p "Will this AP be used with a VPN? (yes or no): " cloud
 
 #  sets VPN settings based off users vpn cert location
 if [ "$cloud" = "yes" ]; then
-  read -p "Please specify pull path for your VPN file. (/home/user/user.ovpn)" vpncert
+  read -p "Please specify full path for your VPN conf file. (/home/user/user.ovpn)" vpnconf
   sudo apt install openvpn -y
 fi
 
@@ -33,7 +33,9 @@ echo "SSID: $ssid"
 echo "Password: $pass"
 echo "Wireless card: $wificard"
 echo "Mode and Channel: $mode $channel"
-echo "VPN cert location: $vpncert"
+if [ "$cloud" = "yes" ]; then
+  echo "VPN conf location: $vpnconf"
+fi
 echo " "
 echo "To modify these settings, check the '/etc/hostapd/hostapd.conf'"
 echo " "
@@ -130,15 +132,6 @@ sudo sed -i '/^exit 0/ i iptables-restore < /etc/iptables.ipv4.nat' /etc/rc.loca
 ##########################################
 
 
-#  sets VPN settings for tun0
-if [ "$cloud" = "yes" ]; then
-   sudo ip route add default dev tun0
-   sudo sysctl -w net.ipv4.ip_forward=1
-   sudo iptables -t nat -A POSTROUTING -o tun0 -j MASQUERADE
-   sudo netfilter-persistent save
-fi
-
-
 # Starts required services and then reboots the machine
 clear
 sudo systemctl start hostapd
@@ -147,4 +140,16 @@ sudo systemctl enable hostapd
 sudo systemctl start dnsmasq
 sudo systemctl enable dnsmasq
 sudo systemctl enable ssh
+
+#  sets VPN settings for tun0
+if [ "$cloud" = "yes" ]; then
+   sudo openvpn $vpnconf
+   sudo ip route add default dev tun0
+   sudo sysctl -w net.ipv4.ip_forward=1
+   sudo iptables -t nat -A POSTROUTING -o tun0 -j MASQUERADE
+   sudo netfilter-persistent save
+   # echo "@reboot sudo openvpn $vpnconf" > /etc/cron.d/cronjob
+fi
+
+# After everythings done running, the PI will reboot
 sudo reboot
