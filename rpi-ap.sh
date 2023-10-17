@@ -27,7 +27,8 @@ fi
 
 clear
 
-echo "This script is about to apply updates and install the necessary applications to make this machine an access point"
+echo "This script is about to apply updates and install the necessary applications to make this machine an access point."
+echo " "
 echo "SSID: $ssid"
 echo "Password: $pass"
 echo "Wireless card: $wificard"
