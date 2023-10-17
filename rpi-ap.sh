@@ -8,7 +8,13 @@ read -p "What would you like the passphrase to be?: " pass
 read -p "What channel would you like your network to run on?: " channel
 read -p "What network card would you like to use? (ex. wlan0 or wlan1): " wificard
 read -p "How many user's would you like to be able to join this network? (ex: 2-50): " allowed_ips
-read -p "Will this AP be used with a VPN? (yes or no) " cloud
+read -p "Will this AP be used with a VPN? (yes or no): " cloud
+
+#  sets VPN settings based off users vpn creds
+if [ "$cloud" = "yes" ]; then
+  read -p "Please specify pull path for your VPN file. (/home/user/user.ovpn)" vpncert
+  sudo apt install openvpn -y
+fi
 
 # Based off user input, the channel specifies the mode
 if [[ $channel -ge 1 && $channel -le 11 ]]; then
@@ -27,6 +33,7 @@ echo "SSID: $ssid"
 echo "Password: $pass"
 echo "Wireless card: $wificard"
 echo "Mode and Channel: $mode $channel"
+echo "VPN cert location: $vpncert"
 echo " "
 echo "To modify these settings, check the '/etc/hostapd/hostapd.conf'"
 echo " "
@@ -38,7 +45,10 @@ sudo apt-get update -y
 sudo apt-get install hostapd dnsmasq -y
 sudo DEBIAN_FRONTEND=noninteractive apt install -y netfilter-persistent iptables-persistent
 
-#!/bin/bash
+#  installs openvpn
+if [ "$cloud" = "yes" ]; then
+  sudo apt install openvpn -y
+fi
 
 # writes settings to /etc/dhcpcd.conf
 clear
@@ -104,23 +114,23 @@ EOF
 
 # new settings ###########################
 # if any issues, delete between these hashes
-# Update hostapd configuration
+# updates hostapd configurations
 sudo sed -i 's/#DAEMON_CONF=""/DAEMON_CONF="\/etc\/hostapd\/hostapd.conf"/' /etc/default/hostapd
 
-# Enable IP forwarding
+# enables IP forwarding
 sudo sh -c "echo 1 > /proc/sys/net/ipv4/ip_forward"
 sudo sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/' /etc/sysctl.conf
 
-# Configure iptables to allow NAT
+# configures iptables to allow NAT
 sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 sudo sh -c "iptables-save > /etc/iptables.ipv4.nat"
 
-# Enable IP forwarding on boot
+# enable IP forwarding on boot
 sudo sed -i '/^exit 0/ i iptables-restore < /etc/iptables.ipv4.nat' /etc/rc.local
 ##########################################
 
 
-#  Sets VPN settings for tun0
+#  sets VPN settings for tun0
 if [ "$cloud" = "yes" ]; then
    sudo ip route add default dev tun0
    sudo sysctl -w net.ipv4.ip_forward=1
