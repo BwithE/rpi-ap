@@ -1,7 +1,7 @@
 # Raspberry Pi - WPA2 Access Point
 The script will get the latest updates and apply all necessary configs for your Pi to act as an access point.
 
-You will be prompted for SSID, Passphrase, Channel (which will configure 2.4 or 5), wireless card to broadcast from, and how many IP's to lease.
+You will be prompted for SSID, Passphrase, Channel (which will configure 2.4 or 5), wireless card to broadcast from, how many IP's to lease, and configure OPENVPN settings if you want to use the router with a VPN.
 
 You need to specify "wlan0" as your wireless card if you're not using a secondary external wireless card.
 
