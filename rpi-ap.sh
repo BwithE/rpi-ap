@@ -8,6 +8,7 @@ read -p "What would you like the passphrase to be?: " pass
 read -p "What channel would you like your network to run on?: " channel
 read -p "What network card would you like to use? (ex. wlan0 or wlan1): " wificard
 read -p "How many user's would you like to be able to join this network? (ex: 2-50): " allowed_ips
+read -p "Will this AP be used with a VPN? (yes or no) " cloud
 
 # Based off user input, the channel specifies the mode
 if [[ $channel -ge 1 && $channel -le 11 ]]; then
@@ -117,6 +118,16 @@ sudo sh -c "iptables-save > /etc/iptables.ipv4.nat"
 # Enable IP forwarding on boot
 sudo sed -i '/^exit 0/ i iptables-restore < /etc/iptables.ipv4.nat' /etc/rc.local
 ##########################################
+
+
+#  Sets VPN settings for tun0
+if [ "$cloud" = "yes" ]; then
+   sudo ip route add default dev tun0
+   sudo sysctl -w net.ipv4.ip_forward=1
+   sudo iptables -t nat -A POSTROUTING -o tun0 -j MASQUERADE
+   sudo netfilter-persistent save
+fi
+
 
 # Starts required services and then reboots the machine
 clear
