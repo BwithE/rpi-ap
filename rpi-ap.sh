@@ -13,7 +13,6 @@ read -p "Will this AP be used with a VPN? (yes or no): " cloud
 #  sets VPN settings based off users vpn cert location
 if [ "$cloud" = "yes" ]; then
   read -p "Please specify full path for your VPN conf file. (/home/user/user.ovpn)" vpnconf
-  sudo apt install openvpn -y
 fi
 
 # Based off user input, the channel specifies the mode
