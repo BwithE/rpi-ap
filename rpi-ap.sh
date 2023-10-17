@@ -10,7 +10,7 @@ read -p "What network card would you like to use? (ex. wlan0 or wlan1): " wifica
 read -p "How many user's would you like to be able to join this network? (ex: 2-50): " allowed_ips
 read -p "Will this AP be used with a VPN? (yes or no): " cloud
 
-#  sets VPN settings based off users vpn creds
+#  sets VPN settings based off users vpn cert location
 if [ "$cloud" = "yes" ]; then
   read -p "Please specify pull path for your VPN file. (/home/user/user.ovpn)" vpncert
   sudo apt install openvpn -y
