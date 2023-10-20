@@ -3,6 +3,15 @@
 # This script creates a RASPBERRY PI ACCESS POINT
 # With user specified settings
 
+echo "
+    ____        _       ___                            ____        _       __ 
+   / __ \____  (_)     /   | _____________  __________/ __ \____  (_)___  / /_
+  / /_/ / __ \/ /_____/ /| |/ ___/ ___/ _ \/ ___/ ___/ /_/ / __ \/ / __ \/ __/
+ / _, _/ /_/ / /_____/ ___ / /__/ /__/  __(__  |__  ) ____/ /_/ / / / / / /_  
+/_/ |_/ .___/_/     /_/  |_\___/\___/\___/____/____/_/    \____/_/_/ /_/\__/  
+     /_/                                                                      
+    "
+
 read -p "What would you like the SSID to be?: " ssid
 read -p "What would you like the passphrase to be?: " pass
 read -p "What channel would you like your network to run on?: " channel
