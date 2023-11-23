@@ -14,9 +14,9 @@ echo "
 
 read -p "What would you like the SSID to be?: " ssid
 read -p "What would you like the passphrase to be?: " pass
-read -p "What channel would you like your network to run on?: " channel
+read -p "What channel would you like your network to run on? (ex: 3,6,11): " channel
 read -p "What network card would you like to use? (or press Enter for 'wlan0'): " wificard
-read -p "How many user's would you like to be able to join this network? (ex: 2-50): " allowed_ips
+read -p "How many user's would you like to be able to join this network? (2-20): " allowed_ips
 read -p "Will this AP be used with a VPN? (yes or no): " cloud
 
 # Use default value "wlan0" if the user presses Enter without typing anything
@@ -26,7 +26,7 @@ fi
 
 #  sets VPN settings based off users vpn cert location
 if [ "$cloud" = "yes" ]; then
-  read -p "Please specify full path for your VPN conf file. (/home/user/user.ovpn)" vpnconf
+  read -p "Please specify full path for your VPN conf file. (ex: /home/user/user.ovpn): " vpnconf
 fi
 
 # Based off user input, the channel specifies the mode
