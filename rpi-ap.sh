@@ -12,6 +12,7 @@ echo "
      /_/                                                                      
     "
 
+
 read -p "What would you like the SSID to be?: " ssid
 read -p "What would you like the passphrase to be?: " pass
 read -p "What channel would you like your network to run on? (ex: 3,6,11): " channel
