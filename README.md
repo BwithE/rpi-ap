@@ -4,21 +4,17 @@ This Bash script facilitates the setup of a Raspberry Pi as a WPA2 Access Point.
 
 ## Usage:
 
-**_FIRST: Create a local copy of the script._**
+Create a local copy of the script.
 
 ```wget https://raw.githubusercontent.com/BwithE/rpi-wpa2/main/rpi-ap.sh```
 
-**_Make the script executable:_**
+Make the script executable:
 
 ```sudo chmod +x rpi-ap.sh```
 
-**_Then run the script:_**
+Then run the script:
 
-```sudo ./rpi-ap.sh``` 
-
-**_or_**
-
-```sudo bash rpi-ap.sh``` 
+```sudo ./rpi-ap.sh``` or ```sudo bash rpi-ap.sh``` 
 
 ## Configuration:
 
