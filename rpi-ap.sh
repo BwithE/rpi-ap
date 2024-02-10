@@ -4,12 +4,12 @@
 # With user specified settings
 
 echo "
-    ____        _       ___                            ____        _       __ 
+    ____        _       ___                            ____        _       __
    / __ \____  (_)     /   | _____________  __________/ __ \____  (_)___  / /_
   / /_/ / __ \/ /_____/ /| |/ ___/ ___/ _ \/ ___/ ___/ /_/ / __ \/ / __ \/ __/
- / _, _/ /_/ / /_____/ ___ / /__/ /__/  __(__  |__  ) ____/ /_/ / / / / / /_  
-/_/ |_/ .___/_/     /_/  |_\___/\___/\___/____/____/_/    \____/_/_/ /_/\__/  
-     /_/                                                                      
+ / _, _/ /_/ / /_____/ ___ / /__/ /__/  __(__  |__  ) ____/ /_/ / / / / / /_
+/_/ |_/ .___/_/     /_/  |_\___/\___/\___/____/____/_/    \____/_/_/ /_/\__/
+     /_/
     "
 
 
@@ -58,7 +58,7 @@ read -n 1 -r -s -p $'Press enter to continue if the values above are correct. Ot
 clear
 
 # Applies update then install required software for the application
-apt-get update -y 
+apt-get update -y
 apt-get install hostapd dnsmasq -y
 DEBIAN_FRONTEND=noninteractive apt install -y netfilter-persistent iptables-persistent
 
