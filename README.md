@@ -21,7 +21,7 @@ Once the script installs, it will reboot. This could take a few minnutes.
 
 After the reboot, you should see "YOUR SSID" broadcasting.
 
-Please connect with the credentials you created, then go to the following "10.10.10.1"
+Please connect to the ACCESS POINT with the credentials YOU created, then go to the following ```10.10.10.1```
 
 You will then be able to see the "Reconfiguration Screen"
 
