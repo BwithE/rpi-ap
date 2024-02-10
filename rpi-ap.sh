@@ -181,7 +181,7 @@ SERVICE_FILE="/etc/systemd/system/rpiap.service"
 # Create the service file
 cat <<EOF > "$SERVICE_FILE"
 [Unit]
-Description=RPI AP (${USERNAME})
+Description=RPI AP
 After=network.target
 
 [Service]
