@@ -13,7 +13,7 @@ Create a local copy of the script.
 
 Then run the script:
 
-```sudo ./rpi-ap.sh``` or ```sudo bash rpi-ap/rpi-ap.sh``` 
+```sudo bash rpi-ap/rpi-ap.sh``` 
 
 ## Configuration:
 
