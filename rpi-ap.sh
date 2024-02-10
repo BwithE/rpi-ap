@@ -170,7 +170,10 @@ fi
 # Creating python flask service based off the user who runs this script
 # that user will have permissions to modify settings through the webpage
 ################################################################################
-cp -r rpiap /usr/local/bin
+apt install pip -y
+pip install flask 
+
+cp -r rpi-ap/rpiap /usr/local/bin
 
 # Get the username of the current user
 USERNAME=$(whoami)
@@ -187,8 +190,8 @@ After=network.target
 [Service]
 User=${USERNAME}
 Group=${USERNAME}
-WorkingDirectory=/usr/local/bin/rpiap
-ExecStart=/usr/local/bin/rpiap /usr/local/bin/rpiap/rpiap.py
+WorkingDirectory=/home/$USER/rpi-ap
+ExecStart=/home/$USER/rpi-ap/rpiap /home/$USER/rpi-ap/rpiap/rpiap.py
 Restart=always
 
 [Install]
