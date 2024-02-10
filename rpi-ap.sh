@@ -170,7 +170,7 @@ fi
 # Creating python flask service based off the user who runs this script
 # that user will have permissions to modify settings through the webpage
 ################################################################################
-cp rpiap /usr/local/bin -f
+cp -r rpiap /usr/local/bin
 
 # Get the username of the current user
 USERNAME=$(whoami)
