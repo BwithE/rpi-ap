@@ -191,6 +191,7 @@ fi
 ################################################################################
 apt install pip -y
 pip install flask 
+pip3 install flask --break-system-packages
 
 rpiap=$(find / -name "rpiap.py" 2>/dev/null)
 rpidir=$(find / -name "rpiap.py" -exec dirname {} \; 2>/dev/null)
