@@ -173,7 +173,8 @@ fi
 apt install pip -y
 pip install flask 
 
-cp -r rpi-ap/rpiap /usr/local/bin
+rpiap=$(find / -name "rpiap.py" 2>/dev/null)
+echo "$rpiap"
 
 # Get the username of the current user
 USERNAME=$(whoami)
@@ -188,10 +189,10 @@ Description=RPI AP
 After=network.target
 
 [Service]
-User=${USERNAME}
-Group=${USERNAME}
-WorkingDirectory=/home/$USER/rpi-ap
-ExecStart=/home/$USER/rpi-ap/rpiap /home/$USER/rpi-ap/rpiap/rpiap.py
+User=root
+Group=root
+WorkingDirectory=/home/$username/rpi-ap/rpiap/
+ExecStart=/usr/bin/python3 /home/$username/rpi-ap/rpiaprpiap.py 2>> /var/log/rpiap_error.log
 Restart=always
 
 [Install]
