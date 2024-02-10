@@ -1,4 +1,4 @@
-# Raspberry Pi WPA2 Access Point Configuration Script
+# Raspberry Pi Access Point Configuration Script
 
 This Bash script facilitates the setup of a Raspberry Pi as a WPA2 Access Point. The script ensures that your Pi is up-to-date and applies all the necessary configurations to establish it as an access point.
 
