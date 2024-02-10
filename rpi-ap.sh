@@ -185,14 +185,14 @@ SERVICE_FILE="/etc/systemd/system/rpiap.service"
 # Create the service file
 cat <<EOF > "$SERVICE_FILE"
 [Unit]
-Description=RPI AP
+Description=RaspberryPi Access Point
 After=network.target
 
 [Service]
 User=root
 Group=root
-WorkingDirectory=/home/$username/rpi-ap/rpiap/
-ExecStart=/usr/bin/python3 /home/$username/rpi-ap/rpiaprpiap.py 2>> /var/log/rpiap_error.log
+WorkingDirectory=$rpiap
+ExecStart=/usr/bin/python3 $rpiap 2>> /var/log/rpiap_error.log
 Restart=always
 
 [Install]
