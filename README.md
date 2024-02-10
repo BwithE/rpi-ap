@@ -4,8 +4,7 @@ This Bash script facilitates the setup of a Raspberry Pi as a WPA2 Access Point.
 
 Beware, there is no login security from the webpage. I am currently working on a Captive Portal that will integrate fully into this project. Please check out https://github.com/BwithE/captiveportal
 
-![image](https://github.com/BwithE/rpi-ap/assets/144924113/684a20f3-7087-4853-bbaf-2268d6ea3322)
-
+![image](https://github.com/BwithE/rpi-ap/assets/144924113/7901dba3-4a13-4619-be2c-e60a38a718c9)
 
 ## Usage:
 
