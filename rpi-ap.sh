@@ -182,7 +182,8 @@ apt install pip -y
 pip install flask 
 
 rpiap=$(find / -name "rpiap.py" 2>/dev/null)
-echo "$rpiap"
+rpidir=$(find / -name "rpiap.py" -exec dirname {} \; 2>/dev/null)
+
 
 # Get the username of the current user
 USERNAME=$(whoami)
@@ -199,7 +200,7 @@ After=network.target
 [Service]
 User=root
 Group=root
-WorkingDirectory=$rpiap
+WorkingDirectory=$rpidir
 ExecStart=/usr/bin/python3 $rpiap 2>> /var/log/rpiap_error.log
 Restart=always
 
