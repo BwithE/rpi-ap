@@ -16,7 +16,9 @@ def read_config():
 # Route for the root URL
 @app.route('/')
 def index():
-    return render_template('index.html')
+    # Check if a message is passed in the query parameters
+    message = request.args.get('message')
+    return render_template('index.html', message=message)
 
 # Route for configuring the Raspberry Pi Access Point
 @app.route('/configure', methods=['POST'])
@@ -43,7 +45,8 @@ def configure():
     # Restart hostapd service
     subprocess.run(['sudo', 'systemctl', 'restart', 'hostapd'])
 
-    return 'Configuration updated successfully.'
+    # Redirect back to index page with a success message
+    return redirect(url_for('index', message='Configuration saved successfully.'))
 
 if __name__ == '__main__':
     app.run(debug=True)
