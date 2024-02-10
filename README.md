@@ -2,6 +2,8 @@
 
 This Bash script facilitates the setup of a Raspberry Pi as a WPA2 Access Point. The script ensures that your Pi is up-to-date and applies all the necessary configurations to establish it as an access point.
 
+![image](https://github.com/BwithE/rpi-wpa2/assets/144924113/d98f2b3b-6279-4b68-bf55-7c66b41b35f5)
+
 ## Usage:
 
 Create a local copy of the script.
