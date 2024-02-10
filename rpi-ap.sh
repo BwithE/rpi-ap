@@ -176,7 +176,7 @@ cp -r rpiap /usr/local/bin
 USERNAME=$(whoami)
 
 # Define the path where the service file will be created
-SERVICE_FILE="/etc/systemd/system/rpiap${USERNAME}.service"
+SERVICE_FILE="/etc/systemd/system/rpiap.service"
 
 # Create the service file
 cat <<EOF > "$SERVICE_FILE"
