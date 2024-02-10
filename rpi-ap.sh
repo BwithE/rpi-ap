@@ -24,16 +24,27 @@ echo "
 read -p "What would you like the SSID to be?: " ssid
 read -p "What would you like the passphrase to be?: " pass
 read -p "What channel would you like your network to run on? (ex: 3,6,11): " channel
-read -p "What network card would you like to use? (or press Enter for 'wlan0'): " wificard
+read -p "What network card would you like to use? (or press Enter for default: 'wlan0'): " wificard
 read -p "How many user's would you like to be able to join this network? (2-20): " allowed_ips
-read -p "Will this AP be used with a VPN? (yes or no): " cloud
+read -p "Will this AP be used with a VPN? (yes or no, default: no): " cloud
 
-# Use default value "wlan0" if the user presses Enter without typing anything
+# use default value "wlan0" if the user presses Enter without typing anything
 if [ -z "$wificard" ]; then
   wificard="wlan0"
 fi
 
-#  sets VPN settings based off users vpn cert location
+# use default value "no" if the user presses Enter without typing anything
+if [ -z "$cloud" ]; then
+  cloud="no"
+fi
+
+# Check if any variable is not answered, then exit the script
+if [ -z "$ssid" ] || [ -z "$pass" ] || [ -z "$channel" ] || [ -z "$allowed_ips" ]; then
+  echo "Error: Please provide values for all variables. Exiting..."
+  exit 1
+fi
+
+# sets VPN settings based off users vpn cert location
 if [ "$cloud" = "yes" ]; then
   read -p "Please specify full path for your VPN conf file. (ex: /home/user/user.ovpn): " vpnconf
 fi
