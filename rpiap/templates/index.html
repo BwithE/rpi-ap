@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPI Config</title>
+    <style>
+        body {
+            background-color: #3d3d3d;
+            color: #26ff00;
+            font-family: 'Monaco', monospace;
+            font-size: 24px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            text-align: center;
+            padding-top: 100px;
+        }
+
+        h1 {
+            font-size: 48px;
+            margin-bottom: 30px;
+            color: #cb0000;
+        }
+
+        p {
+            font-size: 24px;
+            line-height: 1.6;
+        }
+
+        .button {
+            display: inline-block;
+            background-color: #ff5e00;
+            color: #00ff37;
+            padding: 10px 20px;
+            text-decoration: none;
+            margin-top: 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #3e8e41;
+        }
+
+        /* Responsive Header Styles */
+        .header {
+            overflow: hidden;
+            background-color: #555555;
+            padding: 20px 10px;
+        }
+
+        .header a {
+            float: left;
+            color: rgb(255, 255, 255);
+            text-align: center;
+            font-weight: bold;
+            padding: 12px;
+            text-decoration: none;
+            font-size: 18px; 
+            line-height: 25px;
+            border-radius: 4px;
+        }
+
+        .header a.logo {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .header a:hover {
+            background-color: #2c642e;
+            color: rgb(255, 255, 255);
+        }
+
+        .header a.active {
+            background-color: #3e8e41;
+            color: rgb(255, 255, 255);
+        }
+
+        .header-right {
+            float: right;
+        }
+
+        @media screen and (max-width: 500px) {
+            .header a {
+                float: none;
+                display: block;
+                text-align: left;
+            }
+
+            .header-right {
+                float: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="#default" class="logo">RPI-AP</a>
+        <div class="header-right">
+            <a class="active" href="#home">Home</a>
+            <a href="https://github.com/bwithe/rpi-ap" target="_blank">GitHub</a>
+            <a href="#about">About</a>
+        </div>
+    </div>
+    <div class="container">
+        
+        <p>Reconfigure your Raspberry Pi Access Point settings below:</p>
+        <form action="/configure" method="post">
+            <label for="ssid">Rename SSID:</label><br>
+            <input type="text" id="ssid" name="ssid"><br>
+            <label for="pass">Renew Passphrase:</label><br>
+            <input type="password" id="pass" name="pass"><br>
+            <label for="channel">Change Channel:</label><br>
+            <input type="text" id="channel" name="channel"><br>
+            <input type="submit" value="Configure" class="button">
+        </form>
+    </div>
+</body>
+</html>
