@@ -61,6 +61,6 @@ def configure():
 if __name__ == '__main__':
     ip_address = read_ip_from_dhcpcd()
     if ip_address:
-        app.run(host=ip_address, port=80, debug=True)
+        app.run(host=ip_address, port=8080, debug=True)
     else:
         print("Failed to read IP address from dhcpcd.conf. Please check the file.")
