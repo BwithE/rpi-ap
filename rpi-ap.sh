@@ -221,9 +221,9 @@ EOF
 
 # Reload systemd to pick up the changes
 systemctl daemon-reload
+systemctl enable rpiap.service
 
 echo "Service file created at: $SERVICE_FILE"
-
 
 # After everythings done running, the PI will reboot
 reboot
