@@ -201,7 +201,7 @@ After=network.target
 User=root
 Group=root
 WorkingDirectory=$rpidir
-ExecStart=/usr/bin/python3 $rpiap 2>> /var/log/rpiap_error.log
+ExecStart=/usr/bin/python3 $rpiap
 Restart=always
 
 [Install]
