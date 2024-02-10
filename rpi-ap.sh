@@ -2,7 +2,15 @@
 
 # This script creates a RASPBERRY PI ACCESS POINT
 # With user specified settings
+clear
+# Checks to verify that the script is running as root
+if [[ $EUID -ne 0 ]]; then
+   echo "THIS SCRIPT NEEDS TO BE RUN AS ROOT."
+   echo "EX: sudo ./dockerbuild.sh"
+   exit 1
+fi
 
+clear
 echo "
     ____        _       ___                            ____        _       __
    / __ \____  (_)     /   | _____________  __________/ __ \____  (_)___  / /_
