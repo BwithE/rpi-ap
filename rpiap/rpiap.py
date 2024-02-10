@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 import subprocess
 
 app = Flask(__name__)
 
+# Function to read the current configuration
 def read_config():
     config = {}
     with open('/etc/hostapd/hostapd.conf', 'r') as f:
@@ -12,6 +13,12 @@ def read_config():
                 config[key.strip()] = value.strip()
     return config
 
+# Route for the root URL
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+# Route for configuring the Raspberry Pi Access Point
 @app.route('/configure', methods=['POST'])
 def configure():
     form_ssid = request.form['ssid']
