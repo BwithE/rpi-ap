@@ -188,7 +188,7 @@ After=network.target
 User=${USERNAME}
 Group=${USERNAME}
 WorkingDirectory=/usr/local/bin/rpiap
-ExecStart=/usr/local/bin /usr/local/bin/rpiap/rpiap.py
+ExecStart=/usr/local/bin/rpiap /usr/local/bin/rpiap/rpiap.py
 Restart=always
 
 [Install]
