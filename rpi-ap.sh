@@ -189,6 +189,7 @@ fi
 # Creating python flask service based off the user who runs this script
 # that user will have permissions to modify settings through the webpage
 ################################################################################
+clear
 apt install pip -y
 pip install flask 
 pip3 install flask --break-system-packages
@@ -226,5 +227,6 @@ systemctl enable rpiap.service
 
 echo "Service file created at: $SERVICE_FILE"
 
+clear
 # After everythings done running, the PI will reboot
 reboot
