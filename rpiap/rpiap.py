@@ -13,6 +13,16 @@ def read_config():
                 config[key.strip()] = value.strip()
     return config
 
+# COMMENT THIS OUT WHEN TESTING
+# Function to read the IP address from dhcpcd.conf
+def read_ip_from_dhcpcd():
+    with open('/etc/dhcpcd.conf', 'r') as f:
+        for line in f:
+            match = re.match(r'static ip_address=(\d+\.\d+\.\d+\.\d+)/', line)
+            if match:
+                return match.group(1)
+    return None
+
 # Route for the root URL
 @app.route('/')
 def index():
@@ -53,6 +63,16 @@ def configure():
     # Redirect back to settings page with a success message
     return redirect(url_for('settings', message='Configuration saved successfully.'))
 
+
+# USE THIS FOR TESTING LOCALLY
+#if __name__ == '__main__':
+#    ip_address = '127.0.0.1'  # Assign as a string
+#    app.run(host=ip_address, port=80, debug=True)
+
+# COMMENT THIS ONE OUT WHEN TESTING
 if __name__ == '__main__':
-    ip_address = '127.0.0.1'  # Assign as a string
-    app.run(host=ip_address, port=80, debug=True)
+    ip_address = read_ip_from_dhcpcd()
+    if ip_address:
+        app.run(host=ip_address, port=8080, debug=True)
+    else:
+        print("Failed to read IP address from dhcpcd.conf. Please check the file.")
