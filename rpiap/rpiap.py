@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 import subprocess
+import re
 
 app = Flask(__name__, template_folder='templates')  # Explicitly set the templates folder
 
@@ -18,7 +19,7 @@ def read_config():
 def read_ip_from_dhcpcd():
     with open('/etc/dhcpcd.conf', 'r') as f:
         for line in f:
-            match = re.match(r'static ip_address=(\d+\.\d+\.\d+\.\d+)/', line)
+            match = re.match(r'static ip_address=(\d+\.\d+\.\d+\.\d+)/\d+', line)
             if match:
                 return match.group(1)
     return None
@@ -73,6 +74,6 @@ def configure():
 if __name__ == '__main__':
     ip_address = read_ip_from_dhcpcd()
     if ip_address:
-        app.run(host=ip_address, port=8080, debug=True)
+        app.run(host=ip_address, port=80, debug=True)
     else:
         print("Failed to read IP address from dhcpcd.conf. Please check the file.")
