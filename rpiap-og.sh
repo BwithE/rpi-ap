@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This script creates a RASPBERRY PI ACCESS POINT
+# This script creates a RASPBERRY PI ACCESS POINT (ORIGINAL SCRIPT)
 # With user specified settings
 
 echo "
@@ -18,7 +18,7 @@ read -p "What would you like the passphrase to be?: " pass
 read -p "What channel would you like your network to run on? (ex: 3,6,11): " channel
 read -p "What network card would you like to use? (or press Enter for 'wlan0'): " wificard
 read -p "How many user's would you like to be able to join this network? (2-20): " allowed_ips
-read -p "Will this AP be used with a VPN? (yes or no): " cloud
+read -p "Will this AP be used with a VPN? (yes or no): " vpn
 
 # Use default value "wlan0" if the user presses Enter without typing anything
 if [ -z "$wificard" ]; then
@@ -26,7 +26,7 @@ if [ -z "$wificard" ]; then
 fi
 
 #  sets VPN settings based off users vpn cert location
-if [ "$cloud" = "yes" ]; then
+if [ "$vpn" = "yes" ]; then
   read -p "Please specify full path for your VPN conf file. (ex: /home/user/user.ovpn): " vpnconf
 fi
 
@@ -48,7 +48,7 @@ echo "SSID: $ssid"
 echo "Password: $pass"
 echo "Wireless card: $wificard"
 echo "Mode and Channel: $mode $channel"
-if [ "$cloud" = "yes" ]; then
+if [ "$vpn" = "yes" ]; then
   echo "VPN conf location: $vpnconf"
 fi
 echo " "
@@ -63,7 +63,7 @@ sudo apt-get install hostapd dnsmasq -y
 sudo DEBIAN_FRONTEND=noninteractive apt install -y netfilter-persistent iptables-persistent
 
 #  installs openvpn
-if [ "$cloud" = "yes" ]; then
+if [ "$vpn" = "yes" ]; then
   sudo apt install openvpn -y
 fi
 
@@ -157,7 +157,7 @@ sudo systemctl enable dnsmasq
 sudo systemctl enable ssh
 
 #  sets VPN settings for tun0
-if [ "$cloud" = "yes" ]; then
+if [ "$vpn" = "yes" ]; then
    sudo openvpn $vpnconf &
    sudo ip route add default dev tun0
    sudo sysctl -w net.ipv4.ip_forward=1
