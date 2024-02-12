@@ -35,7 +35,7 @@ fi
 
 # use default value "no" if the user presses Enter without typing anything
 if [ -z "$vpn" ]; then
-  cloud="no"
+  vpn="no"
 fi
 
 # Check if any variable is not answered, then exit the script
@@ -180,7 +180,7 @@ systemctl enable dnsmasq
 systemctl enable ssh
 
 #  sets VPN settings for tun0
-if [ "$cloud" = "yes" ]; then
+if [ "$vpn" = "yes" ]; then
    openvpn $vpnconf &
    ip route add default dev tun0
    sysctl -w net.ipv4.ip_forward=1
