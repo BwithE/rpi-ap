@@ -229,6 +229,6 @@ echo "Service file created at: $SERVICE_FILE"
 
 clear
 # After everythings done running, the PI will reboot
-echo "Once you're connected to $ssid, Please open a Web-Browser and go to '10.10.10.1'"
+echo "Once you're connected to '$ssid', Please open a Web-Browser and go to '10.10.10.1'"
 read -n 1 -r -s -p $'Press enter to reboot.\n'
 reboot
