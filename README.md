@@ -1,6 +1,6 @@
 # Raspberry Pi Access Point
 
-This Bash script facilitates the setup of a Raspberry Pi as a WPA2 Access Point. It uses Python to host a webpage that can also change configuration settings. The script ensures that your Pi is up-to-date and applies all the necessary configurations to establish it as an access point. 
+This Bash script facilitates the setup of a Raspberry Pi as a WPA2 Access Point. It uses Python to host a webpage that can run nmap scans, arpscans, and change configuration settings. The script ensures that your Pi is up-to-date and applies all the necessary configurations to establish it as an access point. 
 
 Beware, there is no login security from the webpage. I am currently working on a Captive Portal that will integrate fully into this project. Please check out https://github.com/BwithE/captiveportal
 
