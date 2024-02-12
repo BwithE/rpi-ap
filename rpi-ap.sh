@@ -72,7 +72,6 @@ if [ "$vpn" = "yes" ]; then
 fi
 echo " "
 echo "To modify Access Point settings, check the '/etc/hostapd/hostapd.conf'"
-echo "OR, after installation, Please open a Web-Browser and go to '10.10.10.1'"
 echo " "
 read -n 1 -r -s -p $'Press enter to continue if the values above are correct. Otherwise "Ctrl + c" to reenter...\n'
 clear
