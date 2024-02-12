@@ -26,7 +26,7 @@ read -p "What would you like the passphrase to be?: " pass
 read -p "What channel would you like your network to run on? (ex: 3,6,11): " channel
 read -p "What network card would you like to use? (or press Enter for default: 'wlan0'): " wificard
 read -p "How many user's would you like to be able to join this network? (2-20): " allowed_ips
-read -p "Will this AP be used with a VPN? (yes or no, default: no): " cloud
+read -p "Will this AP be used with a VPN? (yes or no, default: no): " vpn
 
 # use default value "wlan0" if the user presses Enter without typing anything
 if [ -z "$wificard" ]; then
@@ -34,7 +34,7 @@ if [ -z "$wificard" ]; then
 fi
 
 # use default value "no" if the user presses Enter without typing anything
-if [ -z "$cloud" ]; then
+if [ -z "$vpn" ]; then
   cloud="no"
 fi
 
@@ -45,7 +45,7 @@ if [ -z "$ssid" ] || [ -z "$pass" ] || [ -z "$channel" ] || [ -z "$allowed_ips" 
 fi
 
 # sets VPN settings based off users vpn cert location
-if [ "$cloud" = "yes" ]; then
+if [ "$vpn" = "yes" ]; then
   read -p "Please specify full path for your VPN conf file. (ex: /home/user/user.ovpn): " vpnconf
 fi
 
@@ -67,7 +67,7 @@ echo "SSID: $ssid"
 echo "Password: $pass"
 echo "Wireless card: $wificard"
 echo "Mode and Channel: $mode $channel"
-if [ "$cloud" = "yes" ]; then
+if [ "$vpn" = "yes" ]; then
   echo "VPN conf location: $vpnconf"
 fi
 echo " "
@@ -78,11 +78,14 @@ clear
 
 # Applies update then install required software for the application
 apt-get update -y
-apt-get install hostapd dnsmasq -y
+apt-get install hostapd dnsmasq nmap arp-scan pip -y
+pip install flask 
+pip3 install flask --break-system-packages
 DEBIAN_FRONTEND=noninteractive apt install -y netfilter-persistent iptables-persistent
+clear
 
 #  installs openvpn
-if [ "$cloud" = "yes" ]; then
+if [ "$vpn" = "yes" ]; then
   apt install openvpn -y
   apt install wireguard -y
 fi
@@ -190,9 +193,6 @@ fi
 # that user will have permissions to modify settings through the webpage
 ################################################################################
 clear
-apt install pip -y
-pip install flask 
-pip3 install flask --break-system-packages
 
 rpiap=$(find / -name "rpiap.py" 2>/dev/null)
 rpidir=$(find / -name "rpiap.py" -exec dirname {} \; 2>/dev/null)
