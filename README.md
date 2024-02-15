@@ -17,7 +17,7 @@ As mentioned before, adding security to log into the RpiAp Portal. Right now, an
 
 Formatting the ARP scans and NMAP scans to fit mobile devices better.
 
-Feed ARP scan IP's into an NMAP dropdown menu for easy enumeration.
+Feed ARP-SCAN results into the NMAP dropdown menu for easy enumeration.
 
 ## Usage:
 
