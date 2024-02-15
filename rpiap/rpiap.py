@@ -1,10 +1,18 @@
+import os
 from flask import Flask, render_template, request, redirect, url_for
 import subprocess
 import re
 
-app = Flask(__name__, template_folder='templates')  # Explicitly set the templates folder
+app = Flask(__name__, template_folder='templates')
 
-# Function to read the current configuration
+# Define the directory paths for saving scan results
+ARP_SCAN_DIR = os.path.join(os.getcwd(), 'arp')
+NMAP_SCAN_DIR = os.path.join(os.getcwd(), 'nmap')
+
+# Create the directories if they don't exist
+os.makedirs(ARP_SCAN_DIR, exist_ok=True)
+os.makedirs(NMAP_SCAN_DIR, exist_ok=True)
+
 def read_config():
     config = {}
     with open('/etc/hostapd/hostapd.conf', 'r') as f:
@@ -14,8 +22,6 @@ def read_config():
                 config[key.strip()] = value.strip()
     return config
 
-# COMMENT THIS OUT WHEN TESTING
-# Function to read the IP address from dhcpcd.conf
 def read_ip_from_dhcpcd():
     with open('/etc/dhcpcd.conf', 'r') as f:
         for line in f:
@@ -24,19 +30,15 @@ def read_ip_from_dhcpcd():
                 return match.group(1)
     return None
 
-# Route for the root URL
 @app.route('/')
 def index():
     return render_template('index.html')
 
-# Route for the settings page
-@app.route('/settings')
+@app.route('/wifi')
 def settings():
-    # Check if a message is passed in the query parameters
     message = request.args.get('message')
-    return render_template('settings.html', message=message)
+    return render_template('wifi.html', message=message)
 
-# Route for configuring the Raspberry Pi Access Point
 @app.route('/configure', methods=['POST'])
 def configure():
     form_ssid = request.form['ssid']
@@ -45,7 +47,6 @@ def configure():
 
     current_config = read_config()
 
-    # Update fields if modified
     if form_ssid:
         current_config['ssid'] = form_ssid
     if form_passphrase:
@@ -53,24 +54,63 @@ def configure():
     if form_channel:
         current_config['channel'] = form_channel
 
-    # Write updated configuration back to file
     with open('/etc/hostapd/hostapd.conf', 'w') as f:
         for key, value in current_config.items():
             f.write(f"{key}={value}\n")
 
-    # Restart hostapd service
     subprocess.run(['sudo', 'systemctl', 'restart', 'hostapd'])
 
-    # Redirect back to settings page with a success message
     return redirect(url_for('settings', message='Configuration saved successfully.'))
 
+@app.route('/netenum', methods=['GET', 'POST'])
+def netenum():
+    if request.method == 'POST':
+        scan_type = request.form['scan_type']
+        interface = request.form['interface']
+        network = request.form.get('network', '')
 
-# USE THIS FOR TESTING LOCALLY
-#if __name__ == '__main__':
-#    ip_address = '127.0.0.1'  # Assign as a string
-#    app.run(host=ip_address, port=80, debug=True)
+        if scan_type == 'arp':
+            try:
+                result = subprocess.check_output(['arp-scan', '-l', f'--interface={interface}']).decode()
+                # Save the ARP scan results into a file in the 'arp' directory
+                with open(os.path.join(ARP_SCAN_DIR, 'arp_scan_results.txt'), 'w') as f:
+                    f.write(result)
+            except subprocess.CalledProcessError as e:
+                result = f"Error executing arp-scan: {e}"
+        elif scan_type == 'nmap':
+            try:
+                result = subprocess.check_output(['nmap', '-p 22', '-Pn', '-n', '-sV', "--open", f'{interface}', network]).decode()
+                # Save the Nmap scan results into a file in the 'nmap' directory
+                with open(os.path.join(NMAP_SCAN_DIR, 'nmap_scan_results.txt'), 'w') as f:
+                    f.write(result)
+            except subprocess.CalledProcessError as e:
+                result = f"Error executing nmap: {e}"
+        else:
+            result = "Invalid scan type"
 
-# COMMENT THIS ONE OUT WHEN TESTING
+        # Redirect to the results page after saving the scan results
+        return redirect(url_for('results'))
+
+    return render_template('netenum.html', result=None)
+
+@app.route('/results')
+def results():
+    # Read ARP scan results
+    arp_scan_results = ''
+    arp_scan_results_path = os.path.join(ARP_SCAN_DIR, 'arp_scan_results.txt')
+    if os.path.exists(arp_scan_results_path):
+        with open(arp_scan_results_path, 'r') as f:
+            arp_scan_results = f.read()
+
+    # Read Nmap scan results
+    nmap_scan_results = ''
+    nmap_scan_results_path = os.path.join(NMAP_SCAN_DIR, 'nmap_scan_results.txt')
+    if os.path.exists(nmap_scan_results_path):
+        with open(nmap_scan_results_path, 'r') as f:
+            nmap_scan_results = f.read()
+
+    return render_template('results.html', arp_scan_results=arp_scan_results, nmap_scan_results=nmap_scan_results)
+
 if __name__ == '__main__':
     ip_address = read_ip_from_dhcpcd()
     if ip_address:

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>Main Menu</title>
+    <title>WiFi Settings</title>
 <style>
         body {
             margin: 0;
@@ -101,22 +101,19 @@
         <div class="topnav-centered">
             <a href="/" class="active">Home</a>
             <a href="/netenum" class="active">NetEnum</a>
-	    <a href="/results" class="active">Results</a>
+            <a href="/results" class="active">Results</a>
             <a href="/wifi" class="active">WiFi</a>
         </div>
     </div>
 
-    <!-- Original content -->
-    <div class="container">
-        <h1>Raspberry Pi Access Point</h1>
-        <p>This Raspberry Pi serves as an access point, providing WiFi connectivity to users who wish to access a network. It requires a physical Ethernet connection to the network from which it will receive internet access, ensuring reliable connectivity. Once connected, users can easily connect to the Raspberry Pi's WiFi network to access the internet.</p>
+<body>
+<center>
 
-        <p>Additionally, this Raspberry Pi access point is equipped with the capability to perform ARP (Address Resolution Protocol) scans and Nmap scans. These functionalities allow for efficient enumeration of the network, enabling users to quickly identify devices and gather essential information about the network's structure and connected devices.</p>
-        
-        <p>You can also reconfigure the SSID, PASSPHRASE, and CHANNEL through the settings tab.</p>
-        
-        <p>In summary, this Raspberry Pi access point not only provides WiFi access but also offers advanced networking capabilities, empowering users to conduct network reconnaissance tasks efficiently and effectively.</p>
-        
-    </div>
+    <h1>ARP Scan Results</h1>
+    <pre>{{ arp_scan_results }}</pre>
+
+    <h1>Nmap Scan Results</h1>
+    <pre>{{ nmap_scan_results }}</pre>
+</center>
 </body>
 </html>
