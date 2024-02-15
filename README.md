@@ -4,6 +4,17 @@ This Bash script facilitates the setup of a Raspberry Pi as a WPA2 Access Point.
 
 !!!CAUTION!!!, there is no login security for the webpage. I am currently working on a Captive Portal that will integrate fully into this project. Please check out https://github.com/BwithE/captiveportal
 
+Things I'm working on:
+Dashboard -  instead of description menu
+
+Fixing the WiFi page to allow 5g channels. The webpage can only modify to 2g channels, unless you know how to use the terminal.
+
+As mentioned before, adding security to log into the RpiAp Portal. Right now, anyone on the RpiAp WiFi can see this webpage and modify SYSTEM settings.
+
+Formatting the ARP scans and NMAP scans to fit mobile devices better.
+
+Feed ARP scan IP's into an NMAP dropdown menu for easy enumeration.
+
 ## Usage:
 
 Create a local copy of the script.
