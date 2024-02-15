@@ -4,12 +4,6 @@ This Bash script facilitates the setup of a Raspberry Pi as a WPA2 Access Point.
 
 !!!CAUTION!!!, there is no login security for the webpage. I am currently working on a Captive Portal that will integrate fully into this project. Please check out https://github.com/BwithE/captiveportal
 
-![image](https://github.com/BwithE/rpi-ap/assets/144924113/efe646fd-df70-437d-bd38-6a782b92ecfc)
-![image](https://github.com/BwithE/rpi-ap/assets/144924113/3929358e-11a3-49c4-b985-bf7552bb1e3e)
-![image](https://github.com/BwithE/rpi-ap/assets/144924113/ff56ec68-d813-401c-9e3d-29743899941c)
-![image](https://github.com/BwithE/rpi-ap/assets/144924113/600b113a-f685-4ae4-be60-9e5cae534814)
-
-
 ## Usage:
 
 Create a local copy of the script.
@@ -67,3 +61,10 @@ The script prompts you for the following configuration options:
    - Initiates a system reboot after applying all configurations.
 
 Upon completion, the Raspberry Pi will reboot and start broadcasting as an access point. Please review the script and its comments before execution, as it involves network configuration and system-level changes.
+
+## Screen Shots:
+
+![image](https://github.com/BwithE/rpi-ap/assets/144924113/efe646fd-df70-437d-bd38-6a782b92ecfc)
+![image](https://github.com/BwithE/rpi-ap/assets/144924113/3929358e-11a3-49c4-b985-bf7552bb1e3e)
+![image](https://github.com/BwithE/rpi-ap/assets/144924113/ff56ec68-d813-401c-9e3d-29743899941c)
+![image](https://github.com/BwithE/rpi-ap/assets/144924113/600b113a-f685-4ae4-be60-9e5cae534814)
