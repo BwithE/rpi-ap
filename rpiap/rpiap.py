@@ -79,7 +79,7 @@ def netenum():
                 result = f"Error executing arp-scan: {e}"
         elif scan_type == 'nmap':
             try:
-                result = subprocess.check_output(['nmap', '-p 22', '-Pn', '-n', '-sV', "--open", f'{interface}', network]).decode()
+                result = subprocess.check_output(['nmap', '-p-', '-Pn', '-n', '-sV', "--open", f'{interface}', network]).decode()
                 # Save the Nmap scan results into a file in the 'nmap' directory
                 with open(os.path.join(NMAP_SCAN_DIR, 'nmap_scan_results.txt'), 'w') as f:
                     f.write(result)
