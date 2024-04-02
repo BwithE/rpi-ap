@@ -195,6 +195,8 @@ fi
 # that user will have permissions to modify settings through the webpage
 ################################################################################
 clear
+echo "Creating WebApp for RpiAP"
+clear
 
 rpiap=$(find / -name "rpiap.py" 2>/dev/null)
 rpidir=$(find / -name "rpiap.py" -exec dirname {} \; 2>/dev/null)
