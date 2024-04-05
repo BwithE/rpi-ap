@@ -55,23 +55,26 @@ The script prompts you for the following configuration options:
 1. **User Input:**
    - Collects user-specified settings for the access point.
 
-2. **VPN Configuration (Optional):**
+2. **Web Based Portal (Optional):**
+   - Based on users input ("yes" or "no") a web based portal will be stood up on the gateway address.
+
+3. **VPN Configuration (Optional):**
    - If a VPN is chosen, the user is prompted to provide the VPN configuration file's full path.
 
-3. **Channel Mode Determination:**
+4. **Channel Mode Determination:**
    - Determines the mode ("g" or "a") based on the user-specified channel.
 
-4. **Display User Input:**
+5. **Display User Input:**
    - Displays a summary of the specified settings.
 
-5. **Installation and Configuration:**
+6. **Installation and Configuration:**
    - Updates and installs necessary applications for access point functionality.
    - Configures network interfaces, IP forwarding, and iptables rules for NAT.
 
-6. **VPN Configuration (if specified):**
+7. **VPN Configuration (if specified):**
    - Applies additional configurations for VPN settings if specified.
 
-7. **Service Start and System Reboot:**
+8. **Service Start and System Reboot:**
    - Starts required services (hostapd, dnsmasq, ssh) and enables them to start on boot.
    - Initiates a system reboot after applying all configurations.
 
