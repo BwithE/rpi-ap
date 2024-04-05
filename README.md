@@ -11,7 +11,7 @@ Creating a Dashboard instead of a Description menu.
 
 Adding DNS/Ad-Blocking capabilities.
 
-Fixing the WiFi page to allow 5GHz channels. The webpage can only modify to 2GHz channels, unless you know how to use the terminal.
+Fixing the WiFi page to allow 5GHz channels. The webpage can only modify to 2GHz channels, unless you know how to use shell commands.
 
 As mentioned before, adding security to log into the RpiAp Portal. Right now, anyone on the RpiAp WiFi can see this webpage and modify SYSTEM settings.
 
