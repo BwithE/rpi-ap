@@ -3,9 +3,9 @@
 # This script creates a RASPBERRY PI ACCESS POINT
 # With user specified settings
 clear
-# Checks to verify that the script is running as root
+# Checks to verify that the script is running as sudo
 if [[ $EUID -ne 0 ]]; then
-   echo "THIS SCRIPT NEEDS TO BE RUN AS ROOT."
+   echo "THIS SCRIPT NEEDS TO BE RUN AS SUDO."
    echo "EX: sudo bash rpi-ap/rpi-ap.sh"
    exit 1
 fi
