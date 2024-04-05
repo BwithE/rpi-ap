@@ -25,7 +25,7 @@ echo "
 
 read -p "What would you like the SSID to be?: " ssid
 read -p "What would you like the passphrase to be?: " pass
-read -p "What channel would you like your network to run on? (ex: 3,6,11): " channel
+read -p "What channel would you like your network to run on? (ex: 1,6,11): " channel
 read -p "What network card would you like to use? (or press Enter for default: 'wlan0'): " wificard
 read -p "How many user's would you like to be able to join this network? (2-20): " allowed_ips
 read -p "Will this AP be used with a VPN? (yes or no, default: no): " vpn
