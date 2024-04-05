@@ -29,6 +29,7 @@ read -p "What channel would you like your network to run on? (ex: 3,6,11): " cha
 read -p "What network card would you like to use? (or press Enter for default: 'wlan0'): " wificard
 read -p "How many user's would you like to be able to join this network? (2-20): " allowed_ips
 read -p "Will this AP be used with a VPN? (yes or no, default: no): " vpn
+read -p "Would you like to have a Web based ported? (yes or now, default: yes): "rpiapcp
 
 # use default value "wlan0" if the user presses Enter without typing anything
 if [ -z "$wificard" ]; then
@@ -194,45 +195,59 @@ fi
 # Creating python flask service based off the user who runs this script
 # that user will have permissions to modify settings through the webpage
 ################################################################################
-clear
-echo "Creating WebApp for RpiAP"
-clear
+if [ -z "$rpiapcp" ]; then
+  rpiapcp="yes"
+fi
 
-rpiap=$(find / -name "rpiap.py" 2>/dev/null)
-rpidir=$(find / -name "rpiap.py" -exec dirname {} \; 2>/dev/null)
+if [ "$rpiapcp" = "yes" ]; then
+
+   clear
+   echo "Creating WebApp for RpiAP"
+   clear
+
+   rpiap=$(find / -name "rpiap.py" 2>/dev/null)
+   rpidir=$(find / -name "rpiap.py" -exec dirname {} \; 2>/dev/null)
 
 
-# Get the username of the current user
-USERNAME=$(whoami)
+   # Get the username of the current user
+   USERNAME=$(whoami)
 
-# Define the path where the service file will be created
-SERVICE_FILE="/etc/systemd/system/rpiap.service"
+   # Define the path where the service file will be created
+   SERVICE_FILE="/etc/systemd/system/rpiap.service"
 
-# Create the service file
-cat <<EOF > "$SERVICE_FILE"
-[Unit]
-Description=RaspberryPi Access Point
-After=network.target
+   # Create the service file
+   cat <<EOF > "$SERVICE_FILE"
+   [Unit]
+   Description=RaspberryPi Access Point
+   After=network.target
 
-[Service]
-User=root
-Group=root
-WorkingDirectory=$rpidir
-ExecStart=/usr/bin/python3 $rpiap
-Restart=always
+   [Service]
+   User=root
+   Group=root
+   WorkingDirectory=$rpidir
+   ExecStart=/usr/bin/python3 $rpiap
+   Restart=always
 
-[Install]
-WantedBy=multi-user.target
-EOF
+   [Install]
+   WantedBy=multi-user.target
+   EOF
 
-# Reload systemd to pick up the changes
-systemctl daemon-reload
-systemctl enable rpiap.service
+   # Reload systemd to pick up the changes
+   systemctl daemon-reload
+   systemctl enable rpiap.service
 
-echo "Service file created at: $SERVICE_FILE"
+   echo "Service file created at: $SERVICE_FILE"
+
+   clear
+   # After everythings done running, the PI will reboot
+   echo "Once you're connected to '$ssid', Please open a Web-Browser and go to '10.10.10.1'"
+   read -n 1 -r -s -p $'Press enter to reboot.\n'
+   reboot
+   fi
+
+
 
 clear
 # After everythings done running, the PI will reboot
-echo "Once you're connected to '$ssid', Please open a Web-Browser and go to '10.10.10.1'"
 read -n 1 -r -s -p $'Press enter to reboot.\n'
 reboot
