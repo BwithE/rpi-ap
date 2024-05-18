@@ -22,14 +22,14 @@ echo "
     
     "
 
-
+echo "####################################################"
 read -p "What would you like the SSID to be?: " ssid
 read -p "What would you like the passphrase to be?: " pass
-read -p "Would you like to have a Web based ported? (yes or now, default: yes): "rpiapcp
+read -p "Would you like to have a Web based ported? (y/n): "rpiapcp
 read -p "What channel would you like your network to run on? (ex: 1,6,11): " channel
 read -p "What network card would you like to use? (or press Enter for default: 'wlan0'): " wificard
 read -p "How many user's would you like to be able to join this network? (2-20): " allowed_ips
-read -p "Will this AP be used with a VPN? (yes or no, default: no): " vpn
+read -p "Will this AP be used with a VPN? (y/n): " vpn
 
 
 # use default value "wlan0" if the user presses Enter without typing anything
@@ -44,12 +44,14 @@ fi
 
 # Check if any variable is not answered, then exit the script
 if [ -z "$ssid" ] || [ -z "$pass" ] || [ -z "$channel" ] || [ -z "$allowed_ips" ]; then
+  echo "####################################################"
   echo "Error: Please provide values for all variables. Exiting..."
   exit 1
 fi
 
 # sets VPN settings based off users vpn cert location
 if [ "$vpn" = "yes" ]; then
+  echo "####################################################"
   read -p "Please specify full path for your VPN conf file. (ex: /home/user/user.ovpn): " vpnconf
 fi
 
@@ -59,12 +61,13 @@ if [[ $channel -ge 1 && $channel -le 11 ]]; then
 elif [[ $channel -ge 36 && $channel -le 196 ]]; then
   mode="a"
 else
+  echo "####################################################"
   echo "Invalid channel number."
   exit 1
 fi
 
 clear
-
+echo "####################################################"
 echo "This script is about to apply updates and install the necessary applications to make this machine an access point."
 echo " "
 echo "SSID: $ssid"
@@ -74,9 +77,11 @@ echo "Mode and Channel: $mode $channel"
 if [ "$vpn" = "yes" ]; then
   echo "VPN conf location: $vpnconf"
 fi
+echo "####################################################"
 echo " "
 echo "To modify Access Point settings, check the '/etc/hostapd/hostapd.conf'"
 echo " "
+echo "####################################################"
 read -n 1 -r -s -p $'Press enter to continue if the values above are correct. Otherwise "Ctrl + c" to reenter...\n'
 clear
 
@@ -90,6 +95,8 @@ clear
 
 #  installs openvpn
 if [ "$vpn" = "yes" ]; then
+echo "####################################################"
+echo "Installing OPENVPN & WIREGUARD"
   apt install openvpn -y
   apt install wireguard -y
 fi
@@ -164,6 +171,7 @@ sed -i 's/#DAEMON_CONF=""/DAEMON_CONF="\/etc\/hostapd\/hostapd.conf"/' /etc/defa
 # enables IP forwarding
 sh -c "echo 1 > /proc/sys/net/ipv4/ip_forward"
 sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/' /etc/sysctl.conf
+sysctl -p
 
 # configures iptables to allow NAT
 iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
@@ -185,6 +193,8 @@ systemctl enable ssh
 
 #  sets VPN settings for tun0
 if [ "$vpn" = "yes" ]; then
+echo "####################################################"
+echo "Configuring VPN"
    openvpn $vpnconf &
    ip route add default dev tun0
    sysctl -w net.ipv4.ip_forward=1
@@ -196,13 +206,11 @@ fi
 # Creating python flask service based off the user who runs this script
 # that user will have permissions to modify settings through the webpage
 ################################################################################
-if [ -z "$rpiapcp" ]; then
-  rpiapcp="yes"
-fi
-
-if [ "$rpiapcp" = "yes" ]; then
-
+if [ "$rpiapcp" = no ]; then
+  rpiapcp="no"
+elif [ "$rpiapcp" = "yes" ]; then
    clear
+   echo "####################################################"
    echo "Creating WebApp for RpiAP"
    clear
 
@@ -217,21 +225,24 @@ if [ "$rpiapcp" = "yes" ]; then
    SERVICE_FILE="/etc/systemd/system/rpiap.service"
 
    # Create the service file
-   cat <<EOF > "$SERVICE_FILE"
-   [Unit]
-   Description=RaspberryPi Access Point
-   After=network.target
+commos=$(cat << EOF 
+[Unit]
+Description=RaspberryPi Access Point
+After=network.target
 
-   [Service]
-   User=root
-   Group=root
-   WorkingDirectory=$rpidir
-   ExecStart=/usr/bin/python3 $rpiap
-   Restart=always
+[Service]
+User=root
+Group=root
+WorkingDirectory=$rpidir
+ExecStart=/usr/bin/python3 $rpiap
+Restart=always
 
-   [Install]
-   WantedBy=multi-user.target
-   EOF
+[Install]
+WantedBy=multi-user.target
+EOF
+)
+
+echo $commos > "$SERVICE_FILE"
 
    # Reload systemd to pick up the changes
    systemctl daemon-reload
@@ -244,6 +255,10 @@ if [ "$rpiapcp" = "yes" ]; then
    echo "Once you're connected to '$ssid', Please open a Web-Browser and go to '10.10.10.1'"
    read -n 1 -r -s -p $'Press enter to reboot.\n'
    reboot
+
+   else
+   echo "####################################################"
+   echo "INVALID INPUT for WebApp"
    fi
 
 
