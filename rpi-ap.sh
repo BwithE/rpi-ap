@@ -25,7 +25,7 @@ echo "
 echo "####################################################"
 read -p "What would you like the SSID to be?: " ssid
 read -p "What would you like the passphrase to be?: " pass
-read -p "Would you like to have a Web based ported? (y/n): "rpiapcp
+read -p "Would you like to have a Web based portal? (y/n): "rpiapcp
 read -p "What channel would you like your network to run on? (ex: 1,6,11): " channel
 read -p "What network card would you like to use? (or press Enter for default: 'wlan0'): " wificard
 read -p "How many user's would you like to be able to join this network? (2-20): " allowed_ips
