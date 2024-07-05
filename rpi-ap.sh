@@ -206,7 +206,7 @@ fi
 # Creating python flask service based off the user who runs this script
 # that user will have permissions to modify settings through the webpage
 ################################################################################
-if [ "$rpiapcp" = no ]; then
+if [ -z "$rpiapcp" ]; then
   rpiapcp="no"
 elif [ "$rpiapcp" = "yes" ]; then
    clear
