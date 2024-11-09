@@ -22,36 +22,35 @@ echo "
     
     "
 
-echo "####################################################"
-read -p "What would you like the SSID to be?: " ssid
-read -p "What would you like the passphrase to be?: " pass
-read -p "Would you like to have a Web based portal? (y/n): " rpiapcp
-read -p "What channel would you like your network to run on? (ex: 1,6,11): " channel
-read -p "What network card would you like to use? (or press Enter for default: 'wlan0'): " wificard
-read -p "How many user's would you like to be able to join this network? (2-20): " allowed_ips
-read -p "Will this AP be used with a VPN? (y/n): " vpn
-
+echo "+-----------------------------------------------+"
+read -p "| What would you like the SSID to be?: " ssid
+read -p "| What would you like the passphrase to be?: " pass
+read -p "| Would you like to have a Web based portal? (y/n): " rpiapcp
+read -p "| What channel would you like your network to run on? (ex: 1,6,11): " channel
+read -p "| What network card would you like to use? (or press Enter for default: 'wlan0'): " wificard
+read -p "| How many user's would you like to be able to join this network? (2-20): " allowed_ips
+read -p "| Will this AP be used with a VPN? (y/n): " vpn
+echo "+-----------------------------------------------+"
 
 # use default value "wlan0" if the user presses Enter without typing anything
 if [ -z "$wificard" ]; then
   wificard="wlan0"
 fi
-
 # use default value "no" if the user presses Enter without typing anything
 if [ -z "$vpn" ]; then
   vpn="no"
 fi
-
 # Check if any variable is not answered, then exit the script
 if [ -z "$ssid" ] || [ -z "$pass" ] || [ -z "$channel" ] || [ -z "$allowed_ips" ]; then
-  echo "####################################################"
+  echo "+--------------------------------------------------------+"
   echo "Error: Please provide values for all variables. Exiting..."
+  echo "+--------------------------------------------------------+"
   exit 1
 fi
 
 # sets VPN settings based off users vpn cert location
 if [ "$vpn" = "yes" ]; then
-  echo "####################################################"
+  echo "+--------------------------------------------------------+"
   read -p "Please specify full path for your VPN conf file. (ex: /home/user/user.ovpn): " vpnconf
 fi
 
@@ -61,27 +60,28 @@ if [[ $channel -ge 1 && $channel -le 11 ]]; then
 elif [[ $channel -ge 36 && $channel -le 196 ]]; then
   mode="a"
 else
-  echo "####################################################"
-  echo "Invalid channel number."
+  echo "+--------------------------------------------------------+"
+  echo "| Invalid channel number."
+  echo "+--------------------------------------------------------+"
   exit 1
 fi
 
 clear
-echo "####################################################"
+echo "+--------------------------------------------------------+"
 echo "This script is about to apply updates and install the necessary applications to make this machine an access point."
-echo " "
-echo "SSID: $ssid"
-echo "Password: $pass"
-echo "Wireless card: $wificard"
-echo "Mode and Channel: $mode $channel"
+echo "+--------------------------------------------------------+"
+echo "| SSID: $ssid"
+echo "| Password: $pass"
+echo "| Wireless card: $wificard"
+echo "| Mode and Channel: $mode $channel"
 if [ "$vpn" = "yes" ]; then
-  echo "VPN conf location: $vpnconf"
+  echo "| VPN conf location: $vpnconf"
 fi
-echo "####################################################"
+echo "+--------------------------------------------------------+"
 echo " "
-echo "To modify Access Point settings, check the '/etc/hostapd/hostapd.conf'"
+echo "| To modify Access Point settings, check the '/etc/hostapd/hostapd.conf'"
 echo " "
-echo "####################################################"
+echo "+--------------------------------------------------------+"
 read -n 1 -r -s -p $'Press enter to continue if the values above are correct. Otherwise "Ctrl + c" to reenter...\n'
 clear
 
@@ -95,8 +95,8 @@ clear
 
 #  installs openvpn
 if [ "$vpn" = "yes" ]; then
-echo "####################################################"
-echo "Installing OPENVPN & WIREGUARD"
+echo "+--------------------------------------------------------+"
+echo "| Installing OPENVPN & WIREGUARD"
   apt install openvpn -y
   apt install wireguard -y
 fi
@@ -193,8 +193,8 @@ systemctl enable ssh
 
 #  sets VPN settings for tun0
 if [ "$vpn" = "yes" ]; then
-echo "####################################################"
-echo "Configuring VPN"
+echo "+--------------------------------------------------------+"
+echo "| Configuring VPN"
    openvpn $vpnconf &
    ip route add default dev tun0
    sysctl -w net.ipv4.ip_forward=1
@@ -210,8 +210,8 @@ if [ -z "$rpiapcp" ]; then
   rpiapcp="no"
 elif [ "$rpiapcp" = "yes" ]; then
    clear
-   echo "####################################################"
-   echo "Creating WebApp for RpiAP"
+   echo "+--------------------------------------------------------+"
+   echo "| Creating WebApp for RpiAP"
    clear
 
    rpiap=$(find / -name "rpiap.py" 2>/dev/null)
@@ -248,17 +248,17 @@ echo $commos > "$SERVICE_FILE"
    systemctl daemon-reload
    systemctl enable rpiap.service
 
-   echo "Service file created at: $SERVICE_FILE"
+   echo "| Service file created at: $SERVICE_FILE"
 
    clear
    # After everythings done running, the PI will reboot
-   echo "Once you're connected to '$ssid', Please open a Web-Browser and go to '10.10.10.1'"
+   echo "| Once you're connected to '$ssid', Please open a Web-Browser and go to '10.10.10.1'"
    read -n 1 -r -s -p $'Press enter to reboot.\n'
    reboot
 
    else
-   echo "####################################################"
-   echo "INVALID INPUT for WebApp"
+   echo "+--------------------------------------------------------+"
+   echo "| INVALID INPUT for WebApp"
    fi
 
 
