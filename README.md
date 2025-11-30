@@ -1,88 +1,38 @@
-# Raspberry Pi Access Point
+# RPI-AP
+Turn a Raspberry Pi into a wireless access point.
 
-This Bash script facilitates the setup of a Raspberry Pi as a WPA2 Access Point. It uses Python to host a webpage that can run nmap scans, arpscans, and change Access Point configuration settings. The script ensures that your Pi is up-to-date and applies all the necessary configurations to establish it as an access point. 
+Just run the `install.sh`, which apply updates and installs the necessary apps the allow RPI-AP to work.
 
-!!!CAUTION!!!
+# Setup
+Clone this repo
+```
+git clone https://github.com/bwithe/rpi-ap
+```
 
-There is no login security for the webpage. I am currently working on a Captive Portal that will integrate fully into this project. Please check out https://github.com/BwithE/captiveportal
+Run the install script
+```
+bash install.sh
+```
 
-# Things I'm working on:
-Creating a Dashboard instead of a Description menu.
+Configure the SSID, Passphrase, Wireless Interface to be used, Number of Clients, and Channel.
 
-Adding DNS/Ad-Blocking capabilities.
+Once the packages are installed, it will ask the user to "Press enter to Reboot"
 
-Fixing the WiFi page to allow 5GHz channels. The webpage can only modify to 2GHz channels, unless you know how to use shell commands.
+Upon reboot, connect to the Access Point with the user specified SSID and Passphrase.
 
-As mentioned before, adding security to log into the RpiAp Portal. Right now, anyone on the RpiAp WiFi can see this webpage and modify SYSTEM settings.
+After getting connected to the Access Point, browse to `10.10.10.1` to login and see the status of your newly configured Access Point.
 
-Formatting the ARP scans and NMAP scans to fit mobile devices better.
+## Login Page
+<img width="577" height="496" alt="image" src="https://github.com/user-attachments/assets/6924a493-bd0e-4f26-9d76-ec30316e61fa" />
 
-Feed ARP-SCAN results into the NMAP dropdown menu for easy enumeration.
+## Dashboard
+<img width="1656" height="603" alt="image" src="https://github.com/user-attachments/assets/18f947b4-9d0d-4c44-ba09-05009f02738f" />
 
-## Usage:
+## Clients
+<img width="1146" height="390" alt="image" src="https://github.com/user-attachments/assets/ae681769-1d2e-4b75-b238-dc354077911e" />
 
-Create a local copy of the script.
+## DNS Traffic
+<img width="1088" height="707" alt="image" src="https://github.com/user-attachments/assets/e71d83f1-8e66-4932-8741-6c91a47e09c7" />
 
-```git clone https://github.com/bwithe/rpi-ap```
-
-Then run the script:
-
-```sudo bash rpi-ap/rpi-ap.sh``` 
-
-Once the script installs, it will reboot. This could take a few minnutes.
-
-After the reboot, you should see "YOUR SSID" broadcasting.
-
-Please connect to the ACCESS POINT with the credentials YOU created, then go to the following ```10.10.10.1```
-
-You will then be able to see the "Reconfiguration Screen"
-
-## Configuration:
-
-The script prompts you for the following configuration options:
-
-- **SSID:** Service Set Identifier for your access point.
-- **Passphrase:** Password for the network.
-- **Channel:** Configures the network to operate on either 2.4GHz or 5GHz.
-- **Wireless Card:** Choose the wireless card to broadcast from (default is "wlan0").
-- **Number of IPs:** Specify the number of users allowed to join the network (2-20).
-- **VPN Configuration (Optional):** If desired, configure OPENVPN settings for VPN usage.
-
-**Note:** Specify "wlan0" as your wireless card if you're not using a secondary external wireless card.
-
-## Process Overview:
-
-1. **User Input:**
-   - Collects user-specified settings for the access point.
-
-2. **Web Based Portal (Optional):**
-   - Based on users input ("yes" or "no") a web based portal will be stood up on the gateway address.
-
-3. **VPN Configuration (Optional):**
-   - If a VPN is chosen, the user is prompted to provide the VPN configuration file's full path.
-
-4. **Channel Mode Determination:**
-   - Determines the mode ("g" or "a") based on the user-specified channel.
-
-5. **Display User Input:**
-   - Displays a summary of the specified settings.
-
-6. **Installation and Configuration:**
-   - Updates and installs necessary applications for access point functionality.
-   - Configures network interfaces, IP forwarding, and iptables rules for NAT.
-
-7. **VPN Configuration (if specified):**
-   - Applies additional configurations for VPN settings if specified.
-
-8. **Service Start and System Reboot:**
-   - Starts required services (hostapd, dnsmasq, ssh) and enables them to start on boot.
-   - Initiates a system reboot after applying all configurations.
-
-Upon completion, the Raspberry Pi will reboot and start broadcasting as an access point. Please review the script and its comments before execution, as it involves network configuration and system-level changes.
-
-## Screen Shots:
-
-![image](https://github.com/BwithE/rpi-ap/assets/144924113/efe646fd-df70-437d-bd38-6a782b92ecfc)
-![image](https://github.com/BwithE/rpi-ap/assets/144924113/3929358e-11a3-49c4-b985-bf7552bb1e3e)
-![image](https://github.com/BwithE/rpi-ap/assets/144924113/ff56ec68-d813-401c-9e3d-29743899941c)
-![image](https://github.com/BwithE/rpi-ap/assets/144924113/600b113a-f685-4ae4-be60-9e5cae534814)
+## Settings
+<img width="579" height="588" alt="image" src="https://github.com/user-attachments/assets/4e8da693-268e-45c3-905a-3df18224c7c0" />
