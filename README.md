@@ -4,24 +4,25 @@ Turn a Raspberry Pi into a wireless access point.
 Just run the `install.sh`, which apply updates and installs the necessary apps the allow RPI-AP to work.
 
 # Setup
-Clone this repo
+1. Clone this repo
 ```
 git clone https://github.com/bwithe/rpi-ap
 ```
 
-Run the install script
+2. Run the install script
 ```
 bash install.sh
 ```
 
-Configure the SSID, Passphrase, Wireless Interface to be used, Number of Clients, and Channel.
+3. Configure the SSID, Passphrase, Wireless Interface to be used, Number of Clients, and Channel.
 
-Once the packages are installed, it will ask the user to "Press enter to Reboot"
+4. Once the packages are installed, it will ask the user to "Press enter to Reboot"
 
-Upon reboot, connect to the Access Point with the user specified SSID and Passphrase.
+5. Upon reboot, connect to the Access Point with the user specified SSID and Passphrase.
 
-After getting connected to the Access Point, browse to `10.10.10.1` to login and see the status of your newly configured Access Point.
+6. After getting connected to the Access Point, browse to `10.10.10.1` to login and see the status of your newly configured Access Point.
 
+# Snapshots
 ## Login Page
 <img width="577" height="496" alt="image" src="https://github.com/user-attachments/assets/6924a493-bd0e-4f26-9d76-ec30316e61fa" />
 
